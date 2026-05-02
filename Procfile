@@ -1,0 +1,1 @@
+web: cd stage2 && python manage.py migrate && gunicorn mysite.wsgi

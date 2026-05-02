@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+<head><title>Game List</title></head>
+<body>
+    <h1>Games</h1>
+
+    <form method="get">
+        <label>Genre:
+            <select name="genre">
+                <option value="">All</option>
+                {% for g in genres %}
+                <option value="{{ g }}" {% if g == selected_genre %}selected{% endif %}>{{ g }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>Platform:
+            <select name="platform">
+                <option value="">All</option>
+                {% for p in platforms %}
+                <option value="{{ p.pk }}" {% if p.pk|stringformat:"s" == selected_platform %}selected{% endif %}>{{ p.name }}</option>
+                {% endfor %}
+            </select>
+        </label>
+
+        <label>Min Year: <input type="number" name="min_year" value="{{ min_year }}"></label>
+        <label>Max Year: <input type="number" name="max_year" value="{{ max_year }}"></label>
+        <label>Min Rating: <input type="number" name="min_rating" min="1" max="10" value="{{ min_rating }}"></label>
+
+        <button type="submit">Filter</button>
+        <a href="{% url 'game_list' %}">Clear</a>
+    </form>
+
+    <br>
+    <a href="{% url 'game_add' %}">+ Add Game</a>
+    <table border="1">
+        <tr>
+            <th>Title</th>
+            <th>Genre</th>
+            <th>Year</th>
+            <th>Price</th>
+            <th>Platform</th>
+            <th>Developer</th>
+            <th>Avg Rating</th>
+            <th>Actions</th>
+        </tr>
+        {% for game in games %}
+        <tr>
+            <td>{{ game.title }}</td>
+            <td>{{ game.genre }}</td>
+            <td>{{ game.release_year }}</td>
+            <td>${{ game.price }}</td>
+            <td>{{ game.platform }}</td>
+            <td>{{ game.developer }}</td>
+            <td>{{ game.avg_rating|floatformat:1|default:"N/A" }}</td>
+            <td>
+                <a href="{% url 'game_edit' game.pk %}">Edit</a>
+                <a href="{% url 'game_delete' game.pk %}">Delete</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </table>
+</body>
+</html>
