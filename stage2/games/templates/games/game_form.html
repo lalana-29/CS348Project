@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head><title>{{ action }} Game</title></head>
+<body>
+    <h1>{{ action }} Game</h1>
+    <form method="post">
+        {% csrf_token %}
+        <p>{{ form.title.label_tag }} {{ form.title }}</p>
+        <p>{{ form.genre.label_tag }} {{ form.genre }}</p>
+        <p>{{ form.release_year.label_tag }} {{ form.release_year }}</p>
+        <p>{{ form.price.label_tag }} {{ form.price }}</p>
+
+        <p>{{ form.platform.label_tag }} {{ form.platform }}</p>
+        <p>{{ form.new_platform.label_tag }} {{ form.new_platform }}</p>
+
+        <p>{{ form.developer.label_tag }} {{ form.developer }}</p>
+        <p>{{ form.new_developer.label_tag }} {{ form.new_developer }}</p>
+        <p>{{ form.new_developer_country.label_tag }} {{ form.new_developer_country }}</p>
+        <p>{{ form.rating.label_tag }} {{ form.rating }}</p>
+
+        <button type="submit">Save</button>
+    </form>
+    <a href="{% url 'game_list' %}">Cancel</a>
+</body>
+</html>
